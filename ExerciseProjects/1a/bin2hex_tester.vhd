@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-ENTITY bin2hex IS
+ENTITY bin2hex_tester IS
 	PORT 
 	(
 		-- Input ports		
@@ -10,7 +10,7 @@ ENTITY bin2hex IS
 		-- Output ports
 		seg : OUT STD_LOGIC_VECTOR(6 DOWNTO 0)
 	);
-END bin2hex;
+END bin2hex_tester;
 
 ARCHITECTURE bin2hex_impl OF bin2hex IS
 BEGIN
