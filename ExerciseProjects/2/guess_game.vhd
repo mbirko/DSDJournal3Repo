@@ -76,18 +76,16 @@ begin
 		if isTrue = '0' then -- if istrue is 0, show input or secret_value depending on showMux
 			hex1 <= numDis(6 downto 0);
 			hex1 <= numDis(13 downto 7);			
-		elsif isTrue = '1' then -- if istrue is 1, show -- for correct guess
-			hex1  <= 0111111;
+		elsif isTrue = '1' then -- if isTrue is 1, show -- for correct guess
+			hex1  <= 0111111; -- '-'
 			hex10 <= 0111111;
-		elsif isTrue = '2' then -- if isture is 2, Lo for try lower guess 
-			hex1  <= 1000111;
+		elsif isTrue = '2' then -- if isTrue is 2, Lo for try lower guess 
+			hex1  <= 1000111; -- 'L'		
 			hex10 <= 1000000;		
-		elsif isTrue = '3' then -- if isture is 3, show Hi for try higher guess
-			hex1  <= 0001001;
-			hex10 <= 0001111;	
-		end if ;
+		elsif isTrue = '3' then  -- if isTrue is 3, show Hi for try higher guess
+			hex1  <= 0001001; -- 'H'
+			hex10 <= 0001111;	-- 
+		end if;	 
 	end process;
--- 0001001 1000111 0111111 'H' 'L' '-' 
-
-end guess_game_imple ; -- uess_game_imple
+end guess_game_imple; 
 
