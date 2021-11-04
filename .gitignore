@@ -9,3 +9,5 @@ db
 output_files
 incremental_db
 simulation
+ExerciseProjects/2/guess_game.qsf
+*.qsf

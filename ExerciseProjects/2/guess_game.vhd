@@ -21,14 +21,14 @@ architecture guess_game_imple of guess_game is
 	signal numDisHigh : std_logic_vector(3  downto 0); -- the most signicant displays number, that needs to be encoded to 7 seg.
 	signal numDis : std_logic_vector(13 downto 0); -- the combination of the two 7seg encoded numbers. 
 	signal isTrue : std_logic; -- ustores the result of the comparetion 
-begin
-	disLow : ENTITY bin2hex -- least sigificant binary to 7seg encoder
 	
+begin
+	disLow : ENTITY bin2hex -- least sigificant binary to 7seg encoder	
 		PORT MAP
-			(
-				bin <= numDisLow,
-				seg <= numDis(6 downto 0)
-			);
+		(
+			bin <= numDisLow,
+			seg <= numDis(6 downto 0)
+		);
 	 
 	disHigh : ENTITY bin2hex -- most sigificant binary to 7seg encoder 
 		PORT MAP
@@ -39,8 +39,8 @@ begin
 
 	setLatch :  process( sensitivity_list) -- latsh that stores the secret_value when sectec when set is pressed
 	begin
-		if set = '1' then
-			secret_value(7 downto 0) = inputs(7 downto 0);
+		if set = '1' then 
+			secret_value(7 downto 0) <= inputs(7 downto 0);
 		end if ;
 	end process ; -- setLatch
 	
@@ -48,11 +48,11 @@ begin
 	showMux : process( show, secret_value, inputs)  -- shows input as defualt, shows secret value when show is pressed
 	begin
 		if show = '1' then
-			numDisLow(3 downto 0) = secret_value(3 downto 0);
-			numDisHigh(7 downto 4) = secret_value(7 downto 4);
+			numDisLow(3 downto 0) <= secret_value(3 downto 0);
+			numDisHigh(7 downto 4) <= secret_value(7 downto 4);
 		elsif show = '0' then
-			numDisLow(3 downto 0) = inputs(3 downto 0);
-			numDisHigh(7 downto 4) = inputs(7 downto 4);
+			numDisLow(3 downto 0) <= inputs(3 downto 0);
+			numDisHigh(7 downto 4) <= inputs(7 downto 4);
 		end if ;
 	end process ; -- showMux
 
@@ -60,14 +60,14 @@ begin
 	begin 
 		if try = '1' then
 			if secret_value = inputs then -- send 1 if the guess is spot on
-				isTrue = 1;
+				isTrue <= 1;
 			elsif secret_value > inputs then -- send 2 if the guess needs to be lower
-				isTrue = 2;
+				isTrue <= 2;
 			elsif secret_value < inputs then  -- send 3 if the guess needs to be higher
-				isTrue = 3;
+				isTrue <= 3;
 			end if ;
 		else
-			isTrue = 0; -- if not any of the above, do send zero
+			isTrue <= 0; -- if not any of the above, do send zero
 		end if ;	
 	end process ; -- compareLogic
 
@@ -76,18 +76,16 @@ begin
 		if isTrue = '0' then -- if istrue is 0, show input or secret_value depending on showMux
 			hex1 <= numDis(6 downto 0);
 			hex1 <= numDis(13 downto 7);			
-		elsif isTrue = '1' then -- if istrue is 1, show -- for correct guess
-			hex1  <= 0111111;
+		elsif isTrue = '1' then -- if isTrue is 1, show -- for correct guess
+			hex1  <= 0111111; -- '-'
 			hex10 <= 0111111;
-		elsif isTrue = '2' then -- if isture is 2, Lo for try lower guess 
-			hex1  <= 1000111;
+		elsif isTrue = '2' then -- if isTrue is 2, Lo for try lower guess 
+			hex1  <= 1000111; -- 'L'		
 			hex10 <= 1000000;		
-		elsif isTrue = '3' then if -- if isture is 3, show Hi for try higher guess
-			hex1  <= 0001001;
-			hex10 <= 0001111;	
-			
-		end if ;
--- 0001001 1000111 0111111 'H' 'L' '-' 
-
-end guess_game_imple ; -- uess_game_imple
+		elsif isTrue = '3' then  -- if isTrue is 3, show Hi for try higher guess
+			hex1  <= 0001001; -- 'H'
+			hex10 <= 0001111;	-- 
+		end if;	 
+	end process;
+end guess_game_imple; 
 
