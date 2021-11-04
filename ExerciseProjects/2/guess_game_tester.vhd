@@ -7,9 +7,8 @@ entity guess_game_tester is
 	port
 	(
 		SW : in std_logic_vector(7 downto 0);
-		KEY0 : in std_logic;
-		KEY1 : in std_logic;
-		KEY2 : in std_logic;
+		KEY : in std_logic_vector(2 downto 0);
+		
 		HEX0 : out std_logic_vector(6 downto 0);
 		HEX1 : out std_logic_vector(6 downto 0)
 	);
@@ -22,10 +21,10 @@ DUT : entity guess_game
 	port map
 	(
 		-- inputs 
-		inputs(7 downto 0) => SW(7 downto 0),
-		set => KEY0,
-		show => KEY1,
-		try => KEY2,
+		inputs => SW,
+		set => KEY(0),
+		show => KEY(1),
+		try => KEY(2),
 		-- outputs
 		hex1 => HEX0,
 		hex10 => HEX1
