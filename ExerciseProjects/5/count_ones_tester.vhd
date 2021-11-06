@@ -16,7 +16,6 @@ entity count_ones_tester is
 
 end count_ones_tester;
 
-
 architecture count_ones_impl_tester of count_ones_tester is
 	
 begin
