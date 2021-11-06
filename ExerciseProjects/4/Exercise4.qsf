@@ -21,11 +21,24 @@
 # Date created = 18:07:54  November 06, 2021
 #
 # -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		Exercise4_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
 
-QUARTUS_VERSION = "13.0"
-DATE = "18:07:54  November 06, 2021"
 
-# Revisions
-
-PROJECT_REVISION = "Exercise4"
-PROJECT_REVISION = "nand8"
+set_global_assignment -name FAMILY "Cyclone IV GX"
+set_global_assignment -name DEVICE AUTO
+set_global_assignment -name TOP_LEVEL_ENTITY Exercise4
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:07:54  NOVEMBER 06, 2021"
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
