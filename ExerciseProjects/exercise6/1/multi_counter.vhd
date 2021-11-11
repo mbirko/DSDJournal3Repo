@@ -40,6 +40,7 @@ begin
 		if reset = '0'  then 
 			-- Reset the counter to 0 
 			cnt := 0;
+			cout_temp := '0';
 		
 		elsif (rising_edge(clk)) then
 			
@@ -49,8 +50,8 @@ begin
 			-- test counter værdier afhængig af mode 
 			-- (og reset counter på passende vis)
 			if (mode = "00") then
-				if (cnt = MAX_COUNT) then
-					cnt := cnt -MAX_COUNT;
+				if (cnt >= MAX_COUNT) then
+					cnt := 0;
 					cout_temp := '1';
 				else 
 					cout_temp := '0';
@@ -58,7 +59,7 @@ begin
 				
 			-- Mode count to 10	
 			elsif mode = "01" then
-				if (cnt = MAX_COUNT/2) then
+				if (cnt >= (MAX_COUNT/2)) then
 					cnt := 0;
 					cout_temp := '1';
 				else 
@@ -67,7 +68,7 @@ begin
 				
 			-- Mode count to 5	
 			elsif mode = "10" then  
-				if (cnt = (MAX_COUNT/5)+1) then
+				if (cnt >= (MAX_COUNT/5)) then
 					cnt := 0;
 					cout_temp := '1';
 				else 
@@ -76,7 +77,7 @@ begin
 				
 			-- Mode count to 2	
 			elsif mode = "11" then  
-				if (cnt = (MAX_COUNT/5)+1) then
+				if (cnt >= (MAX_COUNT/5)) then
 					cnt := 0;
 					cout_temp := '1';
 				else 
