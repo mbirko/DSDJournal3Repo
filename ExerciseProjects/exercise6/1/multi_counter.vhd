@@ -67,7 +67,7 @@ begin
 				
 			-- Mode count to 5	
 			elsif mode = "10" then  
-				if (cnt = MAX_COUNT/5) then
+				if (cnt = (MAX_COUNT/5)+1) then
 					cnt := 0;
 					cout_temp := '1';
 				else 
@@ -76,7 +76,7 @@ begin
 				
 			-- Mode count to 2	
 			elsif mode = "11" then  
-				if (cnt = MAX_COUNT/5) then
+				if (cnt = (MAX_COUNT/5)+1) then
 					cnt := 0;
 					cout_temp := '1';
 				else 
