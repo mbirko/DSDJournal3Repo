@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.all;
 
 ENTITY bin2hex IS
 	PORT 
@@ -34,7 +35,7 @@ BEGIN
 			when "1101" => seg <= "0100001"; -- D
 			when "1110" => seg <= "0000110"; -- E
 			when "1111" => seg <= "0001110"; -- F
-			when OTHERS => seg <= "1111111"; -- off
+			when OTHERS => seg <= "1111111"; 
 		END case;	
 	END process;
 END bin2hex_impl;

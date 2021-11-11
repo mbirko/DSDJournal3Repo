@@ -11,3 +11,11 @@ incremental_db
 simulation
 ExerciseProjects/2/guess_game.qsf
 
+*.rpt
+*.done
+*.smsg
+*.summary
+*.rpt
+*.rpt
+*.jdi
+*.pin

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Exercise5
-Sat Nov 06 18:16:47 2021
+Thu Nov 11 09:46:19 2021
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -13,11 +13,10 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. User-Specified and Inferred Latches
-  9. General Register Statistics
- 10. Multiplexer Restructuring Statistics (Restructuring Performed)
- 11. Elapsed Time Per Partition
- 12. Analysis & Synthesis Messages
+  8. General Register Statistics
+  9. Port Connectivity Checks: "count_ones:DUT|bin2hex:B2H"
+ 10. Elapsed Time Per Partition
+ 11. Analysis & Synthesis Messages
 
 
 
@@ -43,13 +42,13 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Nov 06 18:16:47 2021           ;
+; Analysis & Synthesis Status        ; Successful - Thu Nov 11 09:46:19 2021           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; Exercise5                                       ;
 ; Top-level Entity Name              ; count_ones_tester                               ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 81                                              ;
-;     Total combinational functions  ; 81                                              ;
+; Total logic elements               ; 0                                               ;
+;     Total combinational functions  ; 0                                               ;
 ;     Dedicated logic registers      ; 0                                               ;
 ; Total registers                    ; 0                                               ;
 ; Total pins                         ; 15                                              ;
@@ -156,71 +155,50 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                                               ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                                                                                        ; Library ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+---------+
-; count_ones_tester.vhd            ; yes             ; User VHDL File  ; C:/Users/msldk/Desktop/Uni/SoftwareTeknologi/2Semester/DSD/DSD_exercises/Journal3LocalRepo/DSDJournal3Repo/ExerciseProjects/5/count_ones_tester.vhd ;         ;
-; count_ones.vhd                   ; yes             ; User VHDL File  ; C:/Users/msldk/Desktop/Uni/SoftwareTeknologi/2Semester/DSD/DSD_exercises/Journal3LocalRepo/DSDJournal3Repo/ExerciseProjects/5/count_ones.vhd        ;         ;
-; bin2hex.vhd                      ; yes             ; User VHDL File  ; C:/Users/msldk/Desktop/Uni/SoftwareTeknologi/2Semester/DSD/DSD_exercises/Journal3LocalRepo/DSDJournal3Repo/ExerciseProjects/5/bin2hex.vhd           ;         ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                               ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                                        ; Library ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------+---------+
+; bin2hex.vhd                      ; yes             ; User VHDL File  ; C:/Users/mathias/Documents/Uni/Win2sem/DSD/DSDJournal3Repo/ExerciseProjects/5/bin2hex.vhd           ;         ;
+; count_ones_tester.vhd            ; yes             ; User VHDL File  ; C:/Users/mathias/Documents/Uni/Win2sem/DSD/DSDJournal3Repo/ExerciseProjects/5/count_ones_tester.vhd ;         ;
+; count_ones.vhd                   ; yes             ; User VHDL File  ; C:/Users/mathias/Documents/Uni/Win2sem/DSD/DSDJournal3Repo/ExerciseProjects/5/count_ones.vhd        ;         ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------+---------+
 
 
-+---------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                                     ;
-+---------------------------------------------+-----------------------------------+
-; Resource                                    ; Usage                             ;
-+---------------------------------------------+-----------------------------------+
-; Estimated Total logic elements              ; 81                                ;
-;                                             ;                                   ;
-; Total combinational functions               ; 81                                ;
-; Logic element usage by number of LUT inputs ;                                   ;
-;     -- 4 input functions                    ; 53                                ;
-;     -- 3 input functions                    ; 25                                ;
-;     -- <=2 input functions                  ; 3                                 ;
-;                                             ;                                   ;
-; Logic elements by mode                      ;                                   ;
-;     -- normal mode                          ; 81                                ;
-;     -- arithmetic mode                      ; 0                                 ;
-;                                             ;                                   ;
-; Total registers                             ; 0                                 ;
-;     -- Dedicated logic registers            ; 0                                 ;
-;     -- I/O registers                        ; 0                                 ;
-;                                             ;                                   ;
-; I/O pins                                    ; 15                                ;
-; Embedded Multiplier 9-bit elements          ; 0                                 ;
-; Maximum fan-out node                        ; count_ones:DUT|\P1:countOfones[0] ;
-; Maximum fan-out                             ; 20                                ;
-; Total fan-out                               ; 300                               ;
-; Average fan-out                             ; 3.13                              ;
-+---------------------------------------------+-----------------------------------+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+;                                             ;       ;
+; Total combinational functions               ; 0     ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 0     ;
+;     -- 3 input functions                    ; 0     ;
+;     -- <=2 input functions                  ; 0     ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 0     ;
+;     -- arithmetic mode                      ; 0     ;
+;                                             ;       ;
+; Total registers                             ; 0     ;
+;     -- Dedicated logic registers            ; 0     ;
+;     -- I/O registers                        ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 15    ;
+; Embedded Multiplier 9-bit elements          ; 0     ;
++---------------------------------------------+-------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                   ;
-+----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------+--------------+
-; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                           ; Library Name ;
-+----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------+--------------+
-; |count_ones_tester         ; 81 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 15   ; 0            ; |count_ones_tester                            ; work         ;
-;    |count_ones:DUT|        ; 81 (74)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |count_ones_tester|count_ones:DUT             ; work         ;
-;       |bin2hex:B2H|        ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |count_ones_tester|count_ones:DUT|bin2hex:B2H ; work         ;
-+----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------+--------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; |count_ones_tester         ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 15   ; 0            ; |count_ones_tester  ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
-
-
-+-----------------------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                                             ;
-+----------------------------------------------------+-----------------------------------+------------------------+
-; Latch Name                                         ; Latch Enable Signal               ; Free of Timing Hazards ;
-+----------------------------------------------------+-----------------------------------+------------------------+
-; count_ones:DUT|\P1:countOfones[0]                  ; count_ones:DUT|\P1:countOfones[1] ; yes                    ;
-; count_ones:DUT|\P1:countOfones[1]                  ; count_ones:DUT|\P1:countOfones[1] ; yes                    ;
-; count_ones:DUT|\P1:countOfones[2]                  ; count_ones:DUT|\P1:countOfones[1] ; yes                    ;
-; count_ones:DUT|\P1:countOfones[3]                  ; count_ones:DUT|\P1:countOfones[1] ; yes                    ;
-; Number of user-specified and inferred latches = 4  ;                                   ;                        ;
-+----------------------------------------------------+-----------------------------------+------------------------+
-Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
 +------------------------------------------------------+
@@ -238,13 +216,16 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                     ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                           ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
-; 8:1                ; 4 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |count_ones_tester|count_ones:DUT|\P1:countOfones[3] ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
++--------------------------------------------------------+
+; Port Connectivity Checks: "count_ones:DUT|bin2hex:B2H" ;
++--------+-------+----------+----------------------------+
+; Port   ; Type  ; Severity ; Details                    ;
++--------+-------+----------+----------------------------+
+; bin[3] ; Input ; Info     ; Stuck at VCC               ;
+; bin[2] ; Input ; Info     ; Stuck at GND               ;
+; bin[1] ; Input ; Info     ; Stuck at VCC               ;
+; bin[0] ; Input ; Info     ; Stuck at GND               ;
++--------+-------+----------+----------------------------+
 
 
 +-------------------------------+
@@ -262,46 +243,51 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat Nov 06 18:16:46 2021
+    Info: Processing started: Thu Nov 11 09:46:17 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Exercise5 -c Exercise5
 Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 1 entities, in source file bin2hex.vhd
+    Info (12022): Found design unit 1: bin2hex-bin2hex_impl
+    Info (12023): Found entity 1: bin2hex
 Info (12021): Found 2 design units, including 1 entities, in source file count_ones_tester.vhd
     Info (12022): Found design unit 1: count_ones_tester-count_ones_impl_tester
     Info (12023): Found entity 1: count_ones_tester
 Info (12021): Found 2 design units, including 1 entities, in source file count_ones.vhd
     Info (12022): Found design unit 1: count_ones-count_ones_impl
     Info (12023): Found entity 1: count_ones
-Info (12021): Found 2 design units, including 1 entities, in source file bin2hex.vhd
-    Info (12022): Found design unit 1: bin2hex-bin2hex_impl
-    Info (12023): Found entity 1: bin2hex
 Info (12127): Elaborating entity "count_ones_tester" for the top level hierarchy
 Info (12128): Elaborating entity "count_ones" for hierarchy "count_ones:DUT"
+Warning (10036): Verilog HDL or VHDL warning at count_ones.vhd(20): object "ones" assigned a value but never read
 Warning (10540): VHDL Signal Declaration warning at count_ones.vhd(21): used explicit default value for signal "one" because signal was never assigned a value
-Warning (10492): VHDL Process Statement warning at count_ones.vhd(30): signal "one" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
-Warning (10631): VHDL Process Statement warning at count_ones.vhd(24): inferring latch(es) for signal or variable "countOfones", which holds its previous value in one or more paths through the process
-Info (10041): Inferred latch for "P1:countOfones[0]" at count_ones.vhd(29)
-Info (10041): Inferred latch for "P1:countOfones[1]" at count_ones.vhd(29)
-Info (10041): Inferred latch for "P1:countOfones[2]" at count_ones.vhd(29)
-Info (10041): Inferred latch for "P1:countOfones[3]" at count_ones.vhd(29)
+Warning (10492): VHDL Process Statement warning at count_ones.vhd(31): signal "one" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10631): VHDL Process Statement warning at count_ones.vhd(26): inferring latch(es) for signal or variable "countOfones", which holds its previous value in one or more paths through the process
 Info (12128): Elaborating entity "bin2hex" for hierarchy "count_ones:DUT|bin2hex:B2H"
-Warning (13012): Latch count_ones:DUT|\P1:countOfones[0] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0]
-Warning (13012): Latch count_ones:DUT|\P1:countOfones[1] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0]
-Warning (13012): Latch count_ones:DUT|\P1:countOfones[2] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0]
-Warning (13012): Latch count_ones:DUT|\P1:countOfones[3] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0]
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX0[0]" is stuck at GND
+    Warning (13410): Pin "HEX0[1]" is stuck at GND
+    Warning (13410): Pin "HEX0[2]" is stuck at GND
+    Warning (13410): Pin "HEX0[3]" is stuck at VCC
+    Warning (13410): Pin "HEX0[4]" is stuck at GND
+    Warning (13410): Pin "HEX0[5]" is stuck at GND
+    Warning (13410): Pin "HEX0[6]" is stuck at GND
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 96 device resources after synthesis - the final resource count might be different
+Warning (21074): Design contains 8 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "SW[0]"
+    Warning (15610): No output dependent on input pin "SW[1]"
+    Warning (15610): No output dependent on input pin "SW[2]"
+    Warning (15610): No output dependent on input pin "SW[3]"
+    Warning (15610): No output dependent on input pin "SW[4]"
+    Warning (15610): No output dependent on input pin "SW[5]"
+    Warning (15610): No output dependent on input pin "SW[6]"
+    Warning (15610): No output dependent on input pin "SW[7]"
+Info (21057): Implemented 15 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 8 input pins
     Info (21059): Implemented 7 output pins
-    Info (21061): Implemented 81 logic cells
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 12 warnings
-    Info: Peak virtual memory: 4622 megabytes
-    Info: Processing ended: Sat Nov 06 18:16:47 2021
-    Info: Elapsed time: 00:00:01
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 22 warnings
+    Info: Peak virtual memory: 4631 megabytes
+    Info: Processing ended: Thu Nov 11 09:46:19 2021
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 
 

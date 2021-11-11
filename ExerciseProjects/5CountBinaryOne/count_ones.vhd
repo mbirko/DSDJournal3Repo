@@ -18,29 +18,32 @@ end count_ones;
 
 architecture count_ones_impl of count_ones is
 	signal ones : std_logic_vector(3 downto 0) := "0000";
-	signal one : std_logic_vector(3 downto 0) := "0001";
-	signal z : std_logic_vector(3 downto 0) := "0000";
+	constant O : std_logic_vector(3 downto 0) := "0001";
+	constant Z : std_logic_vector(3 downto 0) := "0000";
 	
 begin
 
+
+-- problem 
+-- misunderstanding varieble initial value assingment timing
 P1 : process(A)
-	variable countOfones : std_logic_vector(3 downto 0) := "0000";
+	variable countOfones : std_logic_vector(3 downto 0) ; -- := "0000"  is not assigned with every process, but at program start time. 
 begin
+	countOfones := "0000"; -- is assigned at every start of every process 
 L1 : for i in 7 downto 0 loop 
 			if A(i) = '1' then
-				countOfones := std_logic_vector(unsigned(countOfones) + unsigned(one));				
+				countOfones := std_logic_vector(unsigned(countOfones) + "1");				
 			else
-				--countOfones := std_logic_vector(unsigned(countOfones) + unsigned(z));	
 				countOfones := countOfones;
 		end if;
 	end loop L1;
-	ones <= "1010";--countOfOnes;
+	ones <= countOfones;
 end process;
 	
 B2H : entity bin2hex
 	port map 
 	(	
-		 bin => "1010",
+		 bin => ones,
 		 seg => HEX		
 	);
 			
