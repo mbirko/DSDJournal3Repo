@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Exercise5
-Sat Nov 06 18:07:03 2021
+Thu Nov 11 09:46:19 2021
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -10,7 +10,13 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Port Connectivity Checks: "count_ones:DUT|bin2hex:B2H"
+ 10. Elapsed Time Per Partition
+ 11. Analysis & Synthesis Messages
 
 
 
@@ -36,24 +42,20 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Sat Nov 06 18:07:03 2021               ;
+; Analysis & Synthesis Status        ; Successful - Thu Nov 11 09:46:19 2021           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; Exercise5                                       ;
-; Top-level Entity Name              ; Exercise5                                       ;
-; Family                             ; Cyclone IV GX                                   ;
-; Total logic elements               ; N/A until Partition Merge                       ;
-;     Total combinational functions  ; N/A until Partition Merge                       ;
-;     Dedicated logic registers      ; N/A until Partition Merge                       ;
-; Total registers                    ; N/A until Partition Merge                       ;
-; Total pins                         ; N/A until Partition Merge                       ;
-; Total virtual pins                 ; N/A until Partition Merge                       ;
-; Total memory bits                  ; N/A until Partition Merge                       ;
-; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                       ;
-; Total GXB Receiver Channel PCS     ; N/A until Partition Merge                       ;
-; Total GXB Receiver Channel PMA     ; N/A until Partition Merge                       ;
-; Total GXB Transmitter Channel PCS  ; N/A until Partition Merge                       ;
-; Total GXB Transmitter Channel PMA  ; N/A until Partition Merge                       ;
-; Total PLLs                         ; N/A until Partition Merge                       ;
+; Top-level Entity Name              ; count_ones_tester                               ;
+; Family                             ; Cyclone II                                      ;
+; Total logic elements               ; 0                                               ;
+;     Total combinational functions  ; 0                                               ;
+;     Dedicated logic registers      ; 0                                               ;
+; Total registers                    ; 0                                               ;
+; Total pins                         ; 15                                              ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 0                                               ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 0                                               ;
 +------------------------------------+-------------------------------------------------+
 
 
@@ -62,8 +64,9 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                                     ; Setting            ; Default Value      ;
 +----------------------------------------------------------------------------+--------------------+--------------------+
-; Top-level entity name                                                      ; Exercise5          ; Exercise5          ;
-; Family name                                                                ; Cyclone IV GX      ; Cyclone IV GX      ;
+; Device                                                                     ; EP2C35F672C6       ;                    ;
+; Top-level entity name                                                      ; count_ones_tester  ; Exercise5          ;
+; Family name                                                                ; Cyclone II         ; Cyclone IV GX      ;
 ; Use smart compilation                                                      ; Off                ; Off                ;
 ; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
 ; Enable compact report table                                                ; Off                ; Off                ;
@@ -102,14 +105,12 @@ applicable agreement for further details.
 ; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
 ; Auto ROM Replacement                                                       ; On                 ; On                 ;
 ; Auto RAM Replacement                                                       ; On                 ; On                 ;
-; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
 ; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
 ; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
 ; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
 ; Strict RAM Replacement                                                     ; Off                ; Off                ;
 ; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
 ; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
-; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
 ; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
 ; Auto Resource Sharing                                                      ; Off                ; Off                ;
 ; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
@@ -117,7 +118,7 @@ applicable agreement for further details.
 ; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
 ; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
 ; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
-; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Timing-Driven Synthesis                                                    ; Off                ; Off                ;
 ; Report Parameter Settings                                                  ; On                 ; On                 ;
 ; Report Source Assignments                                                  ; On                 ; On                 ;
 ; Report Connectivity Checks                                                 ; On                 ; On                 ;
@@ -154,20 +155,139 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                               ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                                        ; Library ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------+---------+
+; bin2hex.vhd                      ; yes             ; User VHDL File  ; C:/Users/mathias/Documents/Uni/Win2sem/DSD/DSDJournal3Repo/ExerciseProjects/5/bin2hex.vhd           ;         ;
+; count_ones_tester.vhd            ; yes             ; User VHDL File  ; C:/Users/mathias/Documents/Uni/Win2sem/DSD/DSDJournal3Repo/ExerciseProjects/5/count_ones_tester.vhd ;         ;
+; count_ones.vhd                   ; yes             ; User VHDL File  ; C:/Users/mathias/Documents/Uni/Win2sem/DSD/DSDJournal3Repo/ExerciseProjects/5/count_ones.vhd        ;         ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+;                                             ;       ;
+; Total combinational functions               ; 0     ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 0     ;
+;     -- 3 input functions                    ; 0     ;
+;     -- <=2 input functions                  ; 0     ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 0     ;
+;     -- arithmetic mode                      ; 0     ;
+;                                             ;       ;
+; Total registers                             ; 0     ;
+;     -- Dedicated logic registers            ; 0     ;
+;     -- I/O registers                        ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 15    ;
+; Embedded Multiplier 9-bit elements          ; 0     ;
++---------------------------------------------+-------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; |count_ones_tester         ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 15   ; 0            ; |count_ones_tester  ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------------+
+; Port Connectivity Checks: "count_ones:DUT|bin2hex:B2H" ;
++--------+-------+----------+----------------------------+
+; Port   ; Type  ; Severity ; Details                    ;
++--------+-------+----------+----------------------------+
+; bin[3] ; Input ; Info     ; Stuck at VCC               ;
+; bin[2] ; Input ; Info     ; Stuck at GND               ;
+; bin[1] ; Input ; Info     ; Stuck at VCC               ;
+; bin[0] ; Input ; Info     ; Stuck at GND               ;
++--------+-------+----------+----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat Nov 06 18:07:02 2021
+    Info: Processing started: Thu Nov 11 09:46:17 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Exercise5 -c Exercise5
 Warning (20028): Parallel compilation is not licensed and has been disabled
-Error (12007): Top-level design entity "Exercise5" is undefined
-Error: Quartus II 64-Bit Analysis & Synthesis was unsuccessful. 1 error, 1 warning
-    Error: Peak virtual memory: 4606 megabytes
-    Error: Processing ended: Sat Nov 06 18:07:03 2021
-    Error: Elapsed time: 00:00:01
-    Error: Total CPU time (on all processors): 00:00:01
+Info (12021): Found 2 design units, including 1 entities, in source file bin2hex.vhd
+    Info (12022): Found design unit 1: bin2hex-bin2hex_impl
+    Info (12023): Found entity 1: bin2hex
+Info (12021): Found 2 design units, including 1 entities, in source file count_ones_tester.vhd
+    Info (12022): Found design unit 1: count_ones_tester-count_ones_impl_tester
+    Info (12023): Found entity 1: count_ones_tester
+Info (12021): Found 2 design units, including 1 entities, in source file count_ones.vhd
+    Info (12022): Found design unit 1: count_ones-count_ones_impl
+    Info (12023): Found entity 1: count_ones
+Info (12127): Elaborating entity "count_ones_tester" for the top level hierarchy
+Info (12128): Elaborating entity "count_ones" for hierarchy "count_ones:DUT"
+Warning (10036): Verilog HDL or VHDL warning at count_ones.vhd(20): object "ones" assigned a value but never read
+Warning (10540): VHDL Signal Declaration warning at count_ones.vhd(21): used explicit default value for signal "one" because signal was never assigned a value
+Warning (10492): VHDL Process Statement warning at count_ones.vhd(31): signal "one" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10631): VHDL Process Statement warning at count_ones.vhd(26): inferring latch(es) for signal or variable "countOfones", which holds its previous value in one or more paths through the process
+Info (12128): Elaborating entity "bin2hex" for hierarchy "count_ones:DUT|bin2hex:B2H"
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX0[0]" is stuck at GND
+    Warning (13410): Pin "HEX0[1]" is stuck at GND
+    Warning (13410): Pin "HEX0[2]" is stuck at GND
+    Warning (13410): Pin "HEX0[3]" is stuck at VCC
+    Warning (13410): Pin "HEX0[4]" is stuck at GND
+    Warning (13410): Pin "HEX0[5]" is stuck at GND
+    Warning (13410): Pin "HEX0[6]" is stuck at GND
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 8 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "SW[0]"
+    Warning (15610): No output dependent on input pin "SW[1]"
+    Warning (15610): No output dependent on input pin "SW[2]"
+    Warning (15610): No output dependent on input pin "SW[3]"
+    Warning (15610): No output dependent on input pin "SW[4]"
+    Warning (15610): No output dependent on input pin "SW[5]"
+    Warning (15610): No output dependent on input pin "SW[6]"
+    Warning (15610): No output dependent on input pin "SW[7]"
+Info (21057): Implemented 15 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 8 input pins
+    Info (21059): Implemented 7 output pins
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 22 warnings
+    Info: Peak virtual memory: 4631 megabytes
+    Info: Processing ended: Thu Nov 11 09:46:19 2021
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:02
 
 
