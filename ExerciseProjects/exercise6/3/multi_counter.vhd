@@ -6,8 +6,8 @@ use work.all;
 entity multi_counter is
 generic
 	(
-		MIN_COUNT : natural := 0; -- min og max count for tæller
-		MAX_COUNT : natural := 10
+		MIN_COUNT : natural := 0; -- min og
+		MAX_COUNT : natural := 10 -- max count for tæller
 	);
 
 	port
@@ -57,7 +57,7 @@ begin
 					cout_temp := '0';
 				end if;
 				
-			-- Mode count to 10	
+			-- Mode count to 9	
 			elsif mode = "01" then
 				if (cnt >= (MAX_COUNT/2)) then
 					cnt := 0;
@@ -66,7 +66,7 @@ begin
 					cout_temp := '0';
 				end if;
 				
-			-- Mode count to 5	
+			-- Mode count to 4	
 			elsif mode = "10" then  
 				if (cnt >= (MAX_COUNT/5)) then
 					cnt := 0;
