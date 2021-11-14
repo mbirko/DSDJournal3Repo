@@ -15,7 +15,7 @@ generic
 		-- Input ports
 		KEY		: in  std_logic_vector(3 downto 0);
 		SW			: in  std_logic_vector(17 downto 16);
-		CLOCK_50 : in std_logic;
+		CLOCK_50 : in 	std_logic; 
 		
 		-- Output ports
 		HEX0		: out std_logic_vector(6 downto 0);
@@ -25,8 +25,8 @@ end one_digit_clock_tester;
 
 
 architecture one_digit_clock_impl_tester of one_digit_clock_tester is
-	signal clkOutSignal : std_logic;
-	signal countSignal : std_logic_vector(3 downto 0); 
+	signal clkOutSignal	: std_logic;
+	signal countSignal	: std_logic_vector(3 downto 0); 
 begin
 
 clockGen : entity clock_gen

@@ -27,36 +27,39 @@ begin
 
 clkProces : process(clk,reset) 
 	variable	cnt : integer range MIN_COUNT to MAX_COUNT; 
-
+	variable clkOutSignal : std_logic;
 begin
 		-- asynkron reset, ikke afhængig af clk
 		if reset = '0'  then 
 			-- Reset the counter to 0 
 			cnt := 0;
-				
+			clkOutSignal := '0';
+			
 		elsif (rising_edge(clk)) then
 			-- increment counter
-			
+			cnt := cnt + 1;	
 			
 			-- speed mode 1 for 1 sec clk pulse 
-			if	(speed = '1') then	
-				cnt := cnt + 1;			
+			if	(speed = '1') then							
 				if (cnt = MAX_COUNT) then
-					clk_out <= '1'; 
-				else
-					clk_out <= '0';
+					cnt := 0;
+					clkOutSignal := '1';
+				else 
+					clkOutSignal := '0';					 
 				end if;
 				
 			-- speed mode 0 for 5 ms clk pulse	
-			elsif (speed = '0') then	
-				cnt := cnt + 200;
-				if (cnt = MAX_COUNT) then
-					clk_out <= '1';
+			elsif (speed = '0') then				
+				if (cnt = (MAX_COUNT/200)) then
+					cnt := 0;
+					clkOutSignal := '1';
 				else 
-					clk_out <= '0';
+					clkOutSignal := '0';
 				end if;
+				
 			end if;
 		end if;
+		clk_out 	<= clkOutSignal;
 	end process;
 end clock_gen_impl;
 
