@@ -27,7 +27,7 @@ end watch;
 architecture watch_impl of watch is
 	-- signals from reset logic process
 	signal reset_out 		: std_logic;
-
+	signal reset_in 		: std_logic;
 	-- signal from clockgen
 	signal clkOutSignal	: std_logic;
 	-- signals from overflow of sec, min and hrs
@@ -64,26 +64,26 @@ multiCounter_sec_1 : entity multi_counter
 		clk => clkOutSignal,
 		cout => cout_sec_1,	
 		mode => "00",
-		reset => KEY(3)		
+		reset => reset_out		
 	);
 	
 multiCounter_sec_10 : entity multi_counter
 	port map 
 	(		
 		count => count_sec_10,
-		clk => cout_sec1,
-		cout => cout_sec10,	
+		clk => cout_sec_1,
+		cout => cout_sec_10,	
 		mode => "01",
-		reset => KEY(3)		
+		reset => reset_out		
 	);
 multiCounter_min_1 : entity multi_counter
 	port map 
 	(		
 		count => count_min_1,
 		clk => cout_sec_10,
-		cout => cout_min1,	
+		cout => cout_min_1,	
 		mode => "00",
-		reset => KEY(3)		
+		reset => reset_out		
 	);
 multiCounter_min_10 : entity multi_counter
 	port map 
@@ -92,7 +92,7 @@ multiCounter_min_10 : entity multi_counter
 		clk => cout_min_1,
 		cout => cout_min_10,	
 		mode => "01",
-		reset => KEY(3)		
+		reset => reset_out		
 	);	
 multiCounter_hrs_1s : entity multi_counter
 	port map 
@@ -101,69 +101,70 @@ multiCounter_hrs_1s : entity multi_counter
 		clk => cout_min_10,
 		cout => cout_hrs_1,	
 		mode => "00",
-		reset => KEY(3)		
+		reset => reset_out		
 	);
 multiCounter_hrs_10 : entity multi_counter
 	port map 
 	(		
 		count => count_hrs_10,
 		clk => cout_hrs_1,
-		cout => "0",	
+			
 		mode => "01",
-		reset => KEY(3)		
+		reset => reset_out		
 	);	
 	
 -- BIN2SEVENSEG SEC, MIN AND HRS	
 bin2sevenseg_sec_1 : entity bin2hex
 	port map 
 	(
-		bin => countSec_1,
+		bin => count_sec_1,
 		seg => sec_1
 	);	
 	
 bin2sevenseg_sec_10 : entity bin2hex
 	port map 
 	(
-		bin => countSec_1,
+		bin => count_sec_10,
 		seg => sec_10
 	);	
 	
 bin2sevenseg_min_1 : entity bin2hex
 	port map 
 	(
-		bin => countSec_1,
+		bin => count_min_1,
 		seg => min_1
 	);	
 	
 bin2sevenseg_min_10 : entity bin2hex
 	port map 
 	(
-		bin => countSec_1,
+		bin => count_min_10,
 		seg => min_10
 	);	
 bin2sevenseg_hrs_1 : entity bin2hex
 	port map 
 	(
-		bin => countSec_1,
+		bin => count_hrs_1,
 		seg => hrs_1
 	);	
 	
 bin2sevenseg_hrs_10 : entity bin2hex
 	port map 
 	(
-		bin => countSec_1,
+		bin => count_hrs_10,
 		seg => hrs_10
 	);	
 
 -- RESET LOGIC
-reset_logic : process(reset) 
+
+reset_logic : process(reset,reset_in,count_hrs_10,count_hrs_1) 
 begin
-	if reset = 0 then
-		reset_out := 0;
-	elsif reset = 1 then
+	if reset_in = '0' then
+		reset_out <= '0';
+	elsif reset = '1' then
 		if count_hrs_10 = "1111"  then 
 			if count_hrs_1 = "1111" then							
-				reset_out := 0;
+				reset_out <= '0';
 			end if;
 		end if;
 	end if;	
