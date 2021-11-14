@@ -19,3 +19,4 @@ ExerciseProjects/2/guess_game.qsf
 *.rpt
 *.jdi
 *.pin
+*.DS_Store
