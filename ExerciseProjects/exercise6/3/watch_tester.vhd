@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.all;
 
 entity watch_tester is
-	port map
+	port 
 	(
 		-- Input ports
 		KEY		: in  std_logic_vector(3 downto 0);
@@ -16,15 +16,15 @@ entity watch_tester is
 		HEX4		: out std_logic_vector(6 downto 0);
 		HEX5		: out std_logic_vector(6 downto 0);
 		HEX6		: out std_logic_vector(6 downto 0);
-		HEX7		: out std_logic_vector(6 downto 0);
+		HEX7		: out std_logic_vector(6 downto 0)
 
 	);
 
 end watch_tester;
 
 architecture watch_tester_impl of watch_tester is
-
 begin
+DUT : entity watch
 	port map
 	(
 		clk 						=> CLOCK_50,
@@ -36,6 +36,7 @@ begin
 		min_10(6 downto 0) 	=> HEX5(6 downto 0),
 		hrs_1(6 downto 0) 	=> HEX6(6 downto 0),
 		hrs_10(6 downto 0) 	=> HEX7(6 downto 0),
+		tm 						=> OPEN
 	);
 
 end watch_tester_impl;

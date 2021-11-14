@@ -9,7 +9,7 @@ entity watch is
 	(
 		-- Input ports
 		clk		: in  std_logic;
-		speed		: in  std_logic_vector(0 downto 0);
+		speed		: in  std_logic;
 		reset 	: in  std_logic;
 
 		-- Output ports
@@ -25,6 +25,10 @@ entity watch is
 end watch;
 
 architecture watch_impl of watch is
+	-- signals from reset logic process
+	signal reset_out 		: std_logic;
+
+	-- signal from clockgen
 	signal clkOutSignal	: std_logic;
 	-- signals from overflow of sec, min and hrs
 	signal cout_sec_1		: std_logic; 
@@ -39,115 +43,130 @@ architecture watch_impl of watch is
 	signal count_min_1	: std_logic_vector(3 downto 0);
 	signal count_min_10	: std_logic_vector(3 downto 0); 
 	signal count_hrs_1	: std_logic_vector(3 downto 0);
-	signal count_hrs_10	: std_logic_vector(3 downto 0) 
+	signal count_hrs_10	: std_logic_vector(3 downto 0); 
 	
 begin
-
+-- CLOCKGEN
 clockGen : entity clock_gen
 	port map 
 	(
-		clk => CLOCK_50,
-		speed => KEY(0),
-		reset => KEY(3),
-		clk_out => clkOutSignal 
+		clk => clk,
+		speed => speed,
+		reset => reset_out,
+		clk_out => clkOutSignal  
 	);
+	
 -- MULTICOUNTER SEC, MIN AND HRS
-sec_1 : entity multi_counter
+multiCounter_sec_1 : entity multi_counter
 	port map 
 	(		
-		count => countSec_1,
+		count => count_sec_1,
 		clk => clkOutSignal,
-		cout => ,	
-		mode => SW,
+		cout => cout_sec_1,	
+		mode => "00",
 		reset => KEY(3)		
 	);
-sec_10 : entity multi_counter
+	
+multiCounter_sec_10 : entity multi_counter
 	port map 
 	(		
-		count => countSec_1,
-		clk => clkOutSignal,
-		cout => ,	
-		mode => SW,
+		count => count_sec_10,
+		clk => cout_sec1,
+		cout => cout_sec10,	
+		mode => "01",
 		reset => KEY(3)		
 	);
-min_1 : entity multi_counter
+multiCounter_min_1 : entity multi_counter
 	port map 
 	(		
-		count => countSec_1,
-		clk => clkOutSignal,
-		cout => ,	
-		mode => SW,
+		count => count_min_1,
+		clk => cout_sec_10,
+		cout => cout_min1,	
+		mode => "00",
 		reset => KEY(3)		
 	);
-min_10 : entity multi_counter
+multiCounter_min_10 : entity multi_counter
 	port map 
 	(		
-		count => countSec_1,
-		clk => clkOutSignal,
-		cout => ,	
-		mode => SW,
+		count => count_min_10,
+		clk => cout_min_1,
+		cout => cout_min_10,	
+		mode => "01",
 		reset => KEY(3)		
 	);	
-hrs_1 : entity multi_counter
+multiCounter_hrs_1s : entity multi_counter
 	port map 
 	(		
-		count => countSec_1,
-		clk => clkOutSignal,
-		cout => ,	
-		mode => SW,
+		count => count_hrs_1,
+		clk => cout_min_10,
+		cout => cout_hrs_1,	
+		mode => "00",
 		reset => KEY(3)		
 	);
-hrs_10 : entity multi_counter
+multiCounter_hrs_10 : entity multi_counter
 	port map 
 	(		
-		count => countSec_1,
-		clk => clkOutSignal,
-		cout => ,	
-		mode => SW,
+		count => count_hrs_10,
+		clk => cout_hrs_1,
+		cout => "0",	
+		mode => "01",
 		reset => KEY(3)		
 	);	
 	
 -- BIN2SEVENSEG SEC, MIN AND HRS	
-sec_1 : entity bin2hex
+bin2sevenseg_sec_1 : entity bin2hex
 	port map 
 	(
 		bin => countSec_1,
 		seg => sec_1
 	);	
 	
-sec_10 : entity bin2hex
+bin2sevenseg_sec_10 : entity bin2hex
 	port map 
 	(
 		bin => countSec_1,
 		seg => sec_10
 	);	
 	
-min_1 : entity bin2hex
+bin2sevenseg_min_1 : entity bin2hex
 	port map 
 	(
 		bin => countSec_1,
 		seg => min_1
 	);	
 	
-min_10 : entity bin2hex
+bin2sevenseg_min_10 : entity bin2hex
 	port map 
 	(
 		bin => countSec_1,
 		seg => min_10
 	);	
-hrs_1 : entity bin2hex
+bin2sevenseg_hrs_1 : entity bin2hex
 	port map 
 	(
 		bin => countSec_1,
 		seg => hrs_1
 	);	
 	
-hrs_10 : entity bin2hex
+bin2sevenseg_hrs_10 : entity bin2hex
 	port map 
 	(
 		bin => countSec_1,
 		seg => hrs_10
 	);	
-	
+
+-- RESET LOGIC
+reset_logic : process(reset) 
+begin
+	if reset = 0 then
+		reset_out := 0;
+	elsif reset = 1 then
+		if count_hrs_10 = "1111"  then 
+			if count_hrs_1 = "1111" then							
+				reset_out := 0;
+			end if;
+		end if;
+	end if;	
+end process reset_logic;
 end watch_impl;
 
