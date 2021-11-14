@@ -22,7 +22,6 @@ ENTITY two_player_guess_game_tester IS
 		HEX7 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0) := "1111111"
 	);
 END two_player_guess_game_tester;
-
 ARCHITECTURE two_player_guess_game_tester_impl OF two_player_guess_game_tester IS
 BEGIN
 	DUT : ENTITY two_player_guess_game
@@ -38,6 +37,5 @@ BEGIN
 			hex1 => HEX0,
 			hex10 => HEX1,
 			hex_p => HEX4
-
 		);
 END two_player_guess_game_tester_impl;
