@@ -108,7 +108,7 @@ multiCounter_hrs_10 : entity multi_counter
 	(		
 		count => count_hrs_10,
 		clk => cout_hrs_1,
-			
+		cout => cout_hrs_10,	
 		mode => "01",
 		reset => reset_out		
 	);	
@@ -157,17 +157,16 @@ bin2sevenseg_hrs_10 : entity bin2hex
 
 -- RESET LOGIC
 
-reset_logic : process(reset,reset_in,count_hrs_10,count_hrs_1) 
+reset_logic : process(reset_in, cout_hrs_10) 
 begin
 	if reset_in = '0' then
 		reset_out <= '0';
-	elsif reset = '1' then
-		if count_hrs_10 = "1111"  then 
-			if count_hrs_1 = "1111" then							
+	elsif reset_in = '1' then
+		if cout_hrs_10 = '1'  then 
 				reset_out <= '0';
-			end if;
 		end if;
 	end if;	
 end process reset_logic;
+
 end watch_impl;
 
