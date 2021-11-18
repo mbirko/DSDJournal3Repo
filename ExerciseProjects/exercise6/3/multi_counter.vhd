@@ -41,21 +41,21 @@ counter_proc : process (clk,reset)
 		cout_temp := '0';
 		
 	elsif (rising_edge(clk)) then		
-		-- increment counter
+		-- INCREMENT COUNTER
 		cnt := cnt + 1;
-		-- test counter værdier afhængig af mode 
-		-- (og reset counter på passende vis)
+		-- CHECK MODE AND ASSIGN MAX VALUE
 		case mode is
 			-- count to 9	
 			when "00" => max_value := MAX_COUNT;
 			-- count to 5
-			when "01" => max_value := MAX_COUNT/2;
+			when "01" => max_value := 6;
 			-- count to 2
 			when "10" => max_value := 3;
 			-- count to 2
 			when "11" => max_value := 3;
 		end case;
 		
+		-- CHECK COUNT VS MAX VALUE
 		if (cnt >= max_value) then
 			cnt := 0;
 			cout_temp := '1';
@@ -65,9 +65,9 @@ counter_proc : process (clk,reset)
 		
 	end if;
 	
-	-- Output the current count
+	-- OUTPUT THE CURRENT COUNT
 	count	<= std_logic_vector(to_unsigned(cnt, count'length));	
-	-- Output cout--
+	-- OUTPUT COUT--
 	cout 	<= cout_temp;
 	end process counter_proc;	
 end multi_counter_impl;
