@@ -1,98 +1,69 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use work.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE work.ALL;
 
-entity multi_counter is
-generic
-	(
-		MIN_COUNT : natural := 0; -- min og max count for tæller
-		MAX_COUNT : natural := 10
+ENTITY multi_counter IS
+	GENERIC (
+		MIN_COUNT : NATURAL := 0; -- min limit for counter
+		MAX_COUNT : NATURAL := 10 -- max limit for counter
 	);
 
-	port
-	(
+	PORT (
 		-- Input ports
-		clk	: in  std_logic;
-		mode	: in  std_logic_vector(1 downto 0);
-		reset : in	std_logic;
-		
+		clk : IN STD_LOGIC;
+		mode : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+		reset : IN STD_LOGIC;
+
 		-- Output ports
-		count	: out std_logic_vector(3 downto 0);
-		cout	: out std_logic
+		count : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+		cout : OUT STD_LOGIC
 	);
-end multi_counter;
+END multi_counter;
 
-architecture multi_counter_impl of multi_counter is
+ARCHITECTURE multi_counter_impl OF multi_counter IS
 
-begin
-	-- process reagerer både clk og reset
-
-	counter_proc : process (clk,reset) 
-		-- bruger "variable" for øjeblikkelig opdatering af counter variable
-		variable   cnt		 : integer range MIN_COUNT to MAX_COUNT; 
-		-- MAX_COUNT betyder IKKE at counteren af sig selv ikke tæller højere end til MAX_COUNT
-		variable cout_temp : std_logic;
-		
-	begin
-	
-		-- asynkron reset, ikke afhængig af clk
-		if reset = '0'  then 
-			-- Reset the counter to 0 
+BEGIN
+	-- counter_proc is sensetive to both clock and reset
+	counter_proc : PROCESS (clk, reset)
+	-- variebles for imidiate updating of counter variables.
+		-- varieble max_value to switch between modes. 
+		VARIABLE max_value : NATURAL;
+		-- limiting the range of cnt between MIN_COUNT and MAX_COUNT
+		VARIABLE cnt : INTEGER RANGE MIN_COUNT TO MAX_COUNT;
+		-- carrry out varieble
+		VARIABLE cout_temp : STD_LOGIC;
+	BEGIN
+		-- asynkron reset, not dependten on clock
+		IF reset = '0' THEN
+			-- Reset the counter and cout to 0 
 			cnt := 0;
 			cout_temp := '0';
-		
-		elsif (rising_edge(clk)) then
-			
-			-- increment counter
+			-- on rasing edge of clk, count up
+		ELSIF (rising_edge(clk)) THEN
 			cnt := cnt + 1;
-			
-			-- test counter værdier afhængig af mode 
-			-- (og reset counter på passende vis)
-			if (mode = "00") then
-				if (cnt >= MAX_COUNT) then
-					cnt := 0;
-					cout_temp := '1';
-				else 
-					cout_temp := '0';
-				end if;
-				
-			-- Mode count to 10	
-			elsif mode = "01" then
-				if (cnt >= (MAX_COUNT/2)) then
-					cnt := 0;
-					cout_temp := '1';
-				else 
-					cout_temp := '0';
-				end if;
-				
-			-- Mode count to 5	
-			elsif mode = "10" then  
-				if (cnt >= (MAX_COUNT/5)) then
-					cnt := 0;
-					cout_temp := '1';
-				else 
-					cout_temp := '0';
-				end if;
-				
-			-- Mode count to 2	
-			elsif mode = "11" then  
-				if (cnt >= (MAX_COUNT/5)) then
-					cnt := 0;
-					cout_temp := '1';
-				else 
-					cout_temp := '0';
-				end if;
-				
-			end if;			
-		end if;
-		
+			-- setting max_value based on mode
+			CASE mode IS
+					-- count to 9	
+				WHEN "00" => max_value := MAX_COUNT;
+					-- count to 5
+				WHEN "01" => max_value := MAX_COUNT/2;
+					-- count to 2
+				WHEN "10" => max_value := MAX_COUNT/3;
+					-- count to 2
+				WHEN "11" => max_value := MAX_count/3;
+			END CASE;
+			-- limitign and couting 
+			IF (cnt >= max_value) THEN
+				cnt := 0;
+				cout_temp := '1';
+			ELSE
+				cout_temp := '0';
+			END IF;
+		END IF;
 		-- Output the current count
-		count	<= std_logic_vector(to_unsigned(cnt, count'length));
-		
+		count <= STD_LOGIC_VECTOR(to_unsigned(cnt, count'length));
 		-- Output cout--
-		cout 	<= cout_temp;
-	end process counter_proc;
-	
-end multi_counter_impl;
-
+		cout <= cout_temp;
+	END PROCESS counter_proc;
+END multi_counter_impl;

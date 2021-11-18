@@ -75,6 +75,7 @@ BEGIN
 			hex1 => hexOutP1(6 DOWNTO 0), -- 7Seg incoded vector for the least sigificant display, DisLow
 			hex10 => hexOutP1(13 DOWNTO 7)-- 7Seg vector for the most sigificant display, DisLow
 		);
+
 	muxPlayerToDisplay : PROCESS (player)
 		VARIABLE temp : STD_LOGIC_VECTOR(13 DOWNTO 0);
 	BEGIN
@@ -84,9 +85,9 @@ BEGIN
 		ELSIF player = '1' THEN
 			temp(6 DOWNTO 0) := hexOutP1(6 DOWNTO 0); -- 7Seg incoded vector for the least sigificant display, DisLow
 			temp(13 DOWNTO 7) := hexOutP1(13 DOWNTO 7);
-		ELSE
-			hex1 <= "0101111";
-			hex10 <= "0000110";
+		ELSE -- in any other case, there is an error
+			temp(6 DOWNTO 0) := "0101111"; -- 'E' 
+			temp(13 DOWNTO 7) := "0000110"; --r
 		END IF;
 		hex1 <= temp(6 DOWNTO 0);
 		hex10 <= temp(13 DOWNTO 7);
