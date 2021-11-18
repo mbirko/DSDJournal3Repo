@@ -18,41 +18,54 @@ entity watch is
 		min_1		: out std_logic_vector(6 downto 0);
 		min_10	: out std_logic_vector(6 downto 0);
 		hrs_1		: out std_logic_vector(6 downto 0);
-		hrs_10	: out std_logic_vector(6 downto 0);
-		tm			: out std_logic_vector(15 downto 0)
+		hrs_10	: out std_logic_vector(6 downto 0)
 		
 	);
 end watch;
 
 architecture watch_impl of watch is
-	-- signals from reset logic process
-	signal reset_out 		: std_logic;
-	signal reset_in 		: std_logic;
 	-- signal from clockgen
 	signal clkOutSignal	: std_logic;
+	-- signal from reset logic
+	signal reset_out : std_logic;
+
 	-- signals from overflow of sec, min and hrs
 	signal cout_sec_1		: std_logic; 
 	signal cout_sec_10	: std_logic; 
-	signal cout_min_1		: std_logic; 
-	signal cout_min_10	: std_logic; 
-	signal cout_hrs_1		: std_logic;
-	signal cout_hrs_10	: std_logic;
+	signal cout_min_1 	: std_logic; 
+	signal cout_min_10 	: std_logic; 
+	signal cout_hrs_1 	: std_logic; 
+	signal cout_hrs_10 	: std_logic; 
+	
 	-- signals for the value count of sec, min and hrs
 	signal count_sec_1	: std_logic_vector(3 downto 0);
-	signal count_sec_10	: std_logic_vector(3 downto 0); 
+	signal count_sec_10	: std_logic_vector(3 downto 0);
 	signal count_min_1	: std_logic_vector(3 downto 0);
-	signal count_min_10	: std_logic_vector(3 downto 0); 
+	signal count_min_10	: std_logic_vector(3 downto 0);
 	signal count_hrs_1	: std_logic_vector(3 downto 0);
-	signal count_hrs_10	: std_logic_vector(3 downto 0); 
+	signal count_hrs_10	: std_logic_vector(3 downto 0);
 	
 begin
+-- RESETLOGIC PROCESS
+	RLP : process(reset, cout_hrs_10, cout_hrs_1)
+	begin	
+		if reset = '0' then
+			reset_out <= '0';		
+		elsif (count_hrs_10 = "0010") and (count_hrs_1 = "0100") then
+			 reset_out <= '0';	
+		else 
+			reset_out <= '1';	
+			
+		end if;
+	end process RLP;
+
 -- CLOCKGEN
 	clockGen : entity clock_gen
 		port map 
 		(
 			clk => clk,
 			speed => speed,
-			reset => reset_out,
+			reset => reset,
 			clk_out => clkOutSignal  
 		);
 		
@@ -64,7 +77,7 @@ begin
 			clk => clkOutSignal,
 			cout => cout_sec_1,	
 			mode => "00",
-			reset => '1'		
+			reset => reset_out		
 		);
 		
 	bin2sevenseg_sec_1 : entity bin2hex
@@ -73,7 +86,7 @@ begin
 			bin => count_sec_1,
 			seg => sec_1
 		);	
-	
+		
 -- MULTICOUNTER AND BIN2SEVEN FOR SEC 10
 	multiCounter_sec_10 : entity multi_counter
 		port map 
@@ -91,7 +104,7 @@ begin
 			bin => count_sec_10,
 			seg => sec_10
 		);	
-		
+
 -- MULTICOUNTER AND BIN2SEVEN FOR MIN 1
 	multiCounter_min_1 : entity multi_counter
 		port map 
@@ -102,14 +115,14 @@ begin
 			mode => "00",
 			reset => reset_out		
 		);
-
+		
 	bin2sevenseg_min_1 : entity bin2hex
 		port map 
 		(
 			bin => count_min_1,
 			seg => min_1
 		);	
-			
+		
 -- MULTICOUNTER AND BIN2SEVEN FOR MIN 10
 	multiCounter_min_10 : entity multi_counter
 		port map 
@@ -119,7 +132,7 @@ begin
 			cout => cout_min_10,	
 			mode => "01",
 			reset => reset_out		
-		);	
+		);
 		
 	bin2sevenseg_min_10 : entity bin2hex
 		port map 
@@ -129,14 +142,14 @@ begin
 		);	
 		
 -- MULTICOUNTER AND BIN2SEVEN FOR HRS 1
-	multiCounter_hrs_1s : entity multi_counter
+	multiCounter_hrs_1 : entity multi_counter
 		port map 
 		(		
 			count => count_hrs_1,
 			clk => cout_min_10,
 			cout => cout_hrs_1,	
 			mode => "00",
-			reset => reset_out		
+			reset => reset_out	
 		);
 		
 	bin2sevenseg_hrs_1 : entity bin2hex
@@ -145,7 +158,7 @@ begin
 			bin => count_hrs_1,
 			seg => hrs_1
 		);	
-			
+		
 -- MULTICOUNTER AND BIN2SEVEN FOR HRS 10
 	multiCounter_hrs_10 : entity multi_counter
 		port map 
@@ -153,9 +166,9 @@ begin
 			count => count_hrs_10,
 			clk => cout_hrs_1,
 			cout => cout_hrs_10,	
-			mode => "11",
+			mode => "10",
 			reset => reset_out		
-		);	
+		);
 		
 	bin2sevenseg_hrs_10 : entity bin2hex
 		port map 
@@ -163,18 +176,6 @@ begin
 			bin => count_hrs_10,
 			seg => hrs_10
 		);	
-
--- RESET LOGIC
-	reset_logic : process(reset_in, cout_hrs_10) 
-	begin
-		if reset_in = '0' then
-			reset_out <= '0';
-		elsif reset_in = '1' then
-			if cout_hrs_10 = '1'  then 
-					reset_out <= '0';
-			end if;
-		end if;	
-	end process reset_logic;
 
 end watch_impl;
 

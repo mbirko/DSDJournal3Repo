@@ -8,7 +8,6 @@ entity watch_tester is
 	(
 		-- Input ports
 		KEY		: in  std_logic_vector(3 downto 0);
-		SW			: in  std_logic_vector(17 downto 16);
 		CLOCK_50 : in 	std_logic; 
 		-- Output ports
 		HEX0		: out std_logic_vector(6 downto 0) := "1111111";
@@ -37,8 +36,8 @@ DUT : entity watch
 		min_1(6 downto 0) 	=> HEX4(6 downto 0),
 		min_10(6 downto 0) 	=> HEX5(6 downto 0),
 		hrs_1(6 downto 0) 	=> HEX6(6 downto 0),
-		hrs_10(6 downto 0) 	=> HEX7(6 downto 0),
-		tm 						=> OPEN
+		hrs_10(6 downto 0) 	=> HEX7(6 downto 0)
+
 	);
 
 end watch_tester_impl;

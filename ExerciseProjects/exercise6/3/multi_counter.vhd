@@ -23,47 +23,47 @@ END multi_counter;
 
 ARCHITECTURE multi_counter_impl OF multi_counter IS
 
-BEGIN
-	-- counter_proc is sensetive to both clock and reset
-	counter_proc : PROCESS (clk, reset)
-	-- variebles for imidiate updating of counter variables.
-		-- varieble max_value to switch between modes. 
-		VARIABLE max_value : NATURAL;
-		-- limiting the range of cnt between MIN_COUNT and MAX_COUNT
-		VARIABLE cnt : INTEGER RANGE MIN_COUNT TO MAX_COUNT;
-		-- carrry out varieble
-		VARIABLE cout_temp : STD_LOGIC;
-	BEGIN
-		-- asynkron reset, not dependten on clock
-		IF reset = '0' THEN
-			-- Reset the counter and cout to 0 
+begin
+counter_proc : process (clk,reset) 
+		variable max_value : natural := 10;
+		-- VARIABLE USED FOR IMMIDIATE UPDATE OF COUNTER VARIABLE
+		variable	cnt	:	integer range MIN_COUNT to MAX_COUNT; 
+		variable cout_temp : std_logic;
+		
+	begin
+	-- ASYNC RESET, NOT CLK DEPENDENT
+	if reset = '0'  then 
+		-- RESET COUNTER TO 0 
+		cnt := 0;
+		cout_temp := '0';
+		
+	elsif (rising_edge(clk)) then		
+		-- INCREMENT COUNTER
+		cnt := cnt + 1;
+		-- CHECK MODE AND ASSIGN MAX VALUE
+		case mode is
+			-- count to 9	
+			when "00" => max_value := MAX_COUNT;
+			-- count to 5
+			when "01" => max_value := 6;
+			-- count to 2
+			when "10" => max_value := 3;
+			-- count to 4
+			when "11" => max_value := 3;
+		end case;
+		
+		-- CHECK COUNT VS MAX VALUE
+		if (cnt >= max_value) then
 			cnt := 0;
 			cout_temp := '0';
-			-- on rasing edge of clk, count up
-		ELSIF (rising_edge(clk)) THEN
-			cnt := cnt + 1;
-			-- setting max_value based on mode
-			CASE mode IS
-					-- count to 9	
-				WHEN "00" => max_value := MAX_COUNT;
-					-- count to 5
-				WHEN "01" => max_value := MAX_COUNT/2;
-					-- count to 2
-				WHEN "10" => max_value := MAX_COUNT/3;
-					-- count to 2
-				WHEN "11" => max_value := MAX_count/3;
-			END CASE;
-			-- limitign and couting 
-			IF (cnt >= max_value) THEN
-				cnt := 0;
-				cout_temp := '1';
-			ELSE
-				cout_temp := '0';
-			END IF;
-		END IF;
-		-- Output the current count
-		count <= STD_LOGIC_VECTOR(to_unsigned(cnt, count'length));
-		-- Output cout--
-		cout <= cout_temp;
-	END PROCESS counter_proc;
-END multi_counter_impl;
+		end if;	
+		
+	end if;
+	
+	-- OUTPUT THE CURRENT COUNT
+	count	<= std_logic_vector(to_unsigned(cnt, count'length));	
+	-- OUTPUT COUT
+	cout 	<= cout_temp;
+	end process counter_proc;	
+end multi_counter_impl;
+
