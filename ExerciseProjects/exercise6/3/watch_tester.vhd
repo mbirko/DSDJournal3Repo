@@ -11,6 +11,8 @@ entity watch_tester is
 		SW			: in  std_logic_vector(17 downto 16);
 		CLOCK_50 : in 	std_logic; 
 		-- Output ports
+		HEX0		: out std_logic_vector(6 downto 0) := "1111111";
+		HEX1		: out std_logic_vector(6 downto 0) := "1111111";		
 		HEX2		: out std_logic_vector(6 downto 0);
 		HEX3		: out std_logic_vector(6 downto 0);
 		HEX4		: out std_logic_vector(6 downto 0);

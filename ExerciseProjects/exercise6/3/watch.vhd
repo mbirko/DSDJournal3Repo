@@ -109,7 +109,7 @@ multiCounter_hrs_10 : entity multi_counter
 		count => count_hrs_10,
 		clk => cout_hrs_1,
 		cout => cout_hrs_10,	
-		mode => "01",
+		mode => "11",
 		reset => reset_out		
 	);	
 	
@@ -117,7 +117,7 @@ multiCounter_hrs_10 : entity multi_counter
 bin2sevenseg_sec_1 : entity bin2hex
 	port map 
 	(
-		bin => count_sec_1,
+		bin => "0101",
 		seg => sec_1
 	);	
 	
@@ -167,6 +167,7 @@ begin
 		end if;
 	end if;	
 end process reset_logic;
+reset_out <= '0';
 
 end watch_impl;
 
