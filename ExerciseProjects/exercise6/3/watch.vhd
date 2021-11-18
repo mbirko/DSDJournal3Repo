@@ -26,6 +26,8 @@ end watch;
 architecture watch_impl of watch is
 	-- signal from clockgen
 	signal clkOutSignal	: std_logic;
+	-- signal from reset logic
+	signal reset_out : std_logic;
 
 	-- signals from overflow of sec, min and hrs
 	signal cout_sec_1		: std_logic; 
@@ -34,6 +36,7 @@ architecture watch_impl of watch is
 	signal cout_min_10 	: std_logic; 
 	signal cout_hrs_1 	: std_logic; 
 	signal cout_hrs_10 	: std_logic; 
+	
 	-- signals for the value count of sec, min and hrs
 	signal count_sec_1	: std_logic_vector(3 downto 0);
 	signal count_sec_10	: std_logic_vector(3 downto 0);
@@ -42,9 +45,20 @@ architecture watch_impl of watch is
 	signal count_hrs_1	: std_logic_vector(3 downto 0);
 	signal count_hrs_10	: std_logic_vector(3 downto 0);
 	
-
-	
 begin
+-- RESETLOGIC PROCESS
+	RLP : process(reset, cout_hrs_10, cout_hrs_1)
+	begin	
+		if reset = '0' then
+			reset_out <= '0';		
+		elsif (count_hrs_10 = "0010") and (count_hrs_1 = "0100") then
+			 reset_out <= '0';	
+		else 
+			reset_out <= '1';	
+			
+		end if;
+	end process RLP;
+
 -- CLOCKGEN
 	clockGen : entity clock_gen
 		port map 
@@ -63,7 +77,7 @@ begin
 			clk => clkOutSignal,
 			cout => cout_sec_1,	
 			mode => "00",
-			reset => reset		
+			reset => reset_out		
 		);
 		
 	bin2sevenseg_sec_1 : entity bin2hex
@@ -81,7 +95,7 @@ begin
 			clk => cout_sec_1,
 			cout => cout_sec_10,	
 			mode => "01",
-			reset => reset		
+			reset => reset_out		
 		);
 		
 	bin2sevenseg_sec_10 : entity bin2hex
@@ -99,7 +113,7 @@ begin
 			clk => cout_sec_10,
 			cout => cout_min_1,	
 			mode => "00",
-			reset => reset		
+			reset => reset_out		
 		);
 		
 	bin2sevenseg_min_1 : entity bin2hex
@@ -117,7 +131,7 @@ begin
 			clk => cout_min_1,
 			cout => cout_min_10,	
 			mode => "01",
-			reset => reset		
+			reset => reset_out		
 		);
 		
 	bin2sevenseg_min_10 : entity bin2hex
@@ -135,7 +149,7 @@ begin
 			clk => cout_min_10,
 			cout => cout_hrs_1,	
 			mode => "00",
-			reset => reset	
+			reset => reset_out	
 		);
 		
 	bin2sevenseg_hrs_1 : entity bin2hex
@@ -153,7 +167,7 @@ begin
 			clk => cout_hrs_1,
 			cout => cout_hrs_10,	
 			mode => "10",
-			reset => reset		
+			reset => reset_out		
 		);
 		
 	bin2sevenseg_hrs_10 : entity bin2hex
@@ -162,18 +176,6 @@ begin
 			bin => count_hrs_10,
 			seg => hrs_10
 		);	
--- RESET LOGIC
-	resetProcess : process(count_hrs_1, count_hrs_10)
-	variable reset_out : integer;
-	begin
-		if	count_hrs_10 = "0010" then
-			if count_hrs_1 = "0100" then
-				reset_out := '0';
-			else 
-				reset_out := '1';
-			end if;
-		end if;
-		reset => reset_out;
-	end process resetProcess;
+
 end watch_impl;
 

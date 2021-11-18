@@ -6,8 +6,8 @@ use work.all;
 entity multi_counter is
 generic
 	(
-		MIN_COUNT : natural := 0; -- min og
-		MAX_COUNT : natural := 10 -- max count for tæller
+		MIN_COUNT : natural := 0; -- MIN AND 
+		MAX_COUNT : natural := 10 -- MAX COUNT VALUES
 	);
 
 	port
@@ -26,17 +26,16 @@ end multi_counter;
 architecture multi_counter_impl of multi_counter is
 
 begin
-	-- process reagerer både clk og reset
 counter_proc : process (clk,reset) 
 		variable max_value : natural := 10;
-		-- bruger "variable" for øjeblikkelig opdatering af counter variable
+		-- VARIABLE USED FOR IMMIDIATE UPDATE OF COUNTER VARIABLE
 		variable	cnt	:	integer range MIN_COUNT to MAX_COUNT; 
-		-- MAX_COUNT betyder IKKE at counteren af sig selv ikke tæller højere end til MAX_COUNT
 		variable cout_temp : std_logic;
+		
 	begin
-	-- asynkron reset, ikke afhængig af clk
+	-- ASYNC RESET, NOT CLK DEPENDENT
 	if reset = '0'  then 
-		-- Reset the counter to 0 
+		-- RESET COUNTER TO 0 
 		cnt := 0;
 		cout_temp := '0';
 		
@@ -51,7 +50,7 @@ counter_proc : process (clk,reset)
 			when "01" => max_value := 6;
 			-- count to 2
 			when "10" => max_value := 3;
-			-- count to 2
+			-- count to 4
 			when "11" => max_value := 3;
 		end case;
 		
@@ -67,7 +66,7 @@ counter_proc : process (clk,reset)
 	
 	-- OUTPUT THE CURRENT COUNT
 	count	<= std_logic_vector(to_unsigned(cnt, count'length));	
-	-- OUTPUT COUT--
+	-- OUTPUT COUT
 	cout 	<= cout_temp;
 	end process counter_proc;	
 end multi_counter_impl;
