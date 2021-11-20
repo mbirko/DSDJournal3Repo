@@ -1,43 +1,38 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use work.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE work.ALL;
 
-entity watch_tester is
-	port 
-	(
+ENTITY watch_tester IS
+	PORT (
 		-- Input ports
-		KEY		: in  std_logic_vector(3 downto 0);
-		CLOCK_50 : in 	std_logic; 
+		KEY : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+		CLOCK_50 : IN STD_LOGIC;
 		-- Output ports
-		HEX0		: out std_logic_vector(6 downto 0) := "1111111";
-		HEX1		: out std_logic_vector(6 downto 0) := "1111111";		
-		HEX2		: out std_logic_vector(6 downto 0);
-		HEX3		: out std_logic_vector(6 downto 0);
-		HEX4		: out std_logic_vector(6 downto 0);
-		HEX5		: out std_logic_vector(6 downto 0);
-		HEX6		: out std_logic_vector(6 downto 0);
-		HEX7		: out std_logic_vector(6 downto 0)
-
+		HEX0 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0) := "1111111"; -- off
+		HEX1 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0) := "1111111"; -- off
+		HEX2 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX3 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX4 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX5 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX6 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX7 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0)
 	);
+END watch_tester;
 
-end watch_tester;
-
-architecture watch_tester_impl of watch_tester is
-begin
-DUT : entity watch
-	port map
-	(
-		clk 						=> CLOCK_50,
-		speed 					=> KEY(0),
-		reset 					=> KEY(3),
-		sec_1(6 downto 0) 	=> HEX2(6 downto 0),
-		sec_10(6 downto 0) 	=> HEX3(6 downto 0),
-		min_1(6 downto 0) 	=> HEX4(6 downto 0),
-		min_10(6 downto 0) 	=> HEX5(6 downto 0),
-		hrs_1(6 downto 0) 	=> HEX6(6 downto 0),
-		hrs_10(6 downto 0) 	=> HEX7(6 downto 0)
-
-	);
-
-end watch_tester_impl;
+ARCHITECTURE watch_tester_impl OF watch_tester IS
+BEGIN
+	DUT : ENTITY watch
+		PORT MAP
+		(
+			clk => CLOCK_50,
+			speed => KEY(0),
+			reset => KEY(3),
+			sec_1(6 DOWNTO 0) => HEX2(6 DOWNTO 0),
+			sec_10(6 DOWNTO 0) => HEX3(6 DOWNTO 0),
+			min_1(6 DOWNTO 0) => HEX4(6 DOWNTO 0),
+			min_10(6 DOWNTO 0) => HEX5(6 DOWNTO 0),
+			hrs_1(6 DOWNTO 0) => HEX6(6 DOWNTO 0),
+			hrs_10(6 DOWNTO 0) => HEX7(6 DOWNTO 0)
+		);
+END watch_tester_impl;
