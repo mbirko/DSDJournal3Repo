@@ -24,18 +24,23 @@ entity alarm_watch_tester is
 end alarm_watch_tester;
 
 architecture alarm_watch_tester_impl of alarm_watch_tester is
-	signal bin_min1   : std_logic_vector(3 downto 0);
-	signal bin_min10  : std_logic_vector(3 downto 0);
-	signal bin_hrs1   : std_logic_vector(3 downto 0);
-	signal bin_hrs10  : std_logic_vector(3 downto 0);
-	signal time_alarm : std_logic_vector(15 downto 0);	
+	signal bin_min_1   : std_logic_vector(3 downto 0);
+	signal bin_min_10  : std_logic_vector(3 downto 0);
+	signal bin_hrs_1   : std_logic_vector(3 downto 0);
+	signal bin_hrs_10  : std_logic_vector(3 downto 0);
+	signal time_alarm  : std_logic_vector(15 downto 0);	
 	
 	signal hex_min_1	: std_logic_vector(6 downto 0);
 	signal hex_min_10	: std_logic_vector(6 downto 0);
 	signal hex_hrs_1	: std_logic_vector(6 downto 0);
 	signal hex_hrs_10	: std_logic_vector(6 downto 0);
 begin
+-- Input limiter < 23:59
 
+		
+-- Compare tm_alarm with tm_watch
+
+	
 -- Instance of watch
 	WATCH : entity watch
 		port map
@@ -49,31 +54,28 @@ begin
 	min_1_bin2hex : entity bin2hex
 		port map
 		(
-			bin => bin_min_1
+			bin => bin_min_1,
 			seg => hex_min_1
 		);
 
 	min_10_bin2hex : entity bin2hex
 		port map
 		(
-			bin => bin_min_10
+			bin => bin_min_10,
 			seg => hex_min_10
 		);
 	hrs_1_bin2hex : entity bin2hex
 		port map
 		(
-			bin => bin_hrs_1
+			bin => bin_hrs_1,
 			seg => hex_hrs_1
 		);
 
 	hrs_10_bin2hex : entity bin2hex
 		port map
 		(
-			bin => bin_hrs_1
+			bin => bin_hrs_1,
 			seg => hex_hrs_10
 		);
-		
--- Compare tm_alarm with tm_watch
-	compareProcess : process 
 
 end alarm_watch_tester_impl;

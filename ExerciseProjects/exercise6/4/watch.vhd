@@ -163,7 +163,7 @@ begin
 	multiCounter_hrs_10 : entity multi_counter
 		port map 
 		(		
-			count => count_hrs_10,
+			count => count_hrs_10, 
 			clk => cout_hrs_1,
 			cout => cout_hrs_10,	
 			mode => "10",
@@ -176,6 +176,6 @@ begin
 			bin => count_hrs_10,
 			seg => hrs_10
 		);	
-
+   
 end watch_impl;
 
