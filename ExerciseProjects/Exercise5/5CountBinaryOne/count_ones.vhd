@@ -22,8 +22,6 @@ architecture count_ones_impl of count_ones is
 	constant Z : std_logic_vector(3 downto 0) := "0000";
 	
 begin
-
-
 -- problem 
 -- misunderstanding varieble initial value assingment timing
 P1 : process(A)

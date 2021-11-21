@@ -50,7 +50,7 @@ begin
 				
 			-- speed mode 0 for 5 ms clk pulse	
 			elsif (speed = '0') then				
-				if (cnt = (MAX_COUNT/4000)) then
+				if (cnt = (MAX_COUNT/200)) then
 					cnt := 0;
 					clkOutSignal := '1';
 				else 

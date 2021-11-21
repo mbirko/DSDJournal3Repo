@@ -13,12 +13,14 @@ entity watch is
 		reset 	: in  std_logic;
 
 		-- Output ports
+		currentTime : out std_logic_vector(41 downto 0);
 		sec_1		: out std_logic_vector(6 downto 0);
 		sec_10	: out std_logic_vector(6 downto 0);
 		min_1		: out std_logic_vector(6 downto 0);
 		min_10	: out std_logic_vector(6 downto 0);
 		hrs_1		: out std_logic_vector(6 downto 0);
-		hrs_10	: out std_logic_vector(6 downto 0)
+		hrs_10	: out std_logic_vector(6 downto 0);
+		tm 		: out std_logic_vector(15 downto 0)
 		
 	);
 end watch;
@@ -84,7 +86,7 @@ begin
 		port map 
 		(
 			bin => count_sec_1,
-			seg => sec_1
+			seg => currentTime(6 downto 0)
 		);	
 		
 -- MULTICOUNTER AND BIN2SEVEN FOR SEC 10
@@ -102,7 +104,7 @@ begin
 		port map 
 		(
 			bin => count_sec_10,
-			seg => sec_10
+			seg => currentTime(13 downto 7)
 		);	
 
 -- MULTICOUNTER AND BIN2SEVEN FOR MIN 1
@@ -120,7 +122,7 @@ begin
 		port map 
 		(
 			bin => count_min_1,
-			seg => min_1
+			seg => currentTime(20 downto 14)
 		);	
 		
 -- MULTICOUNTER AND BIN2SEVEN FOR MIN 10
@@ -138,7 +140,7 @@ begin
 		port map 
 		(
 			bin => count_min_10,
-			seg => min_10
+			seg => currentTime(27 downto 21)
 		);	
 		
 -- MULTICOUNTER AND BIN2SEVEN FOR HRS 1
@@ -156,14 +158,14 @@ begin
 		port map 
 		(
 			bin => count_hrs_1,
-			seg => hrs_1
+			seg => currentTime(34 downto 28)
 		);	
 		
 -- MULTICOUNTER AND BIN2SEVEN FOR HRS 10
 	multiCounter_hrs_10 : entity multi_counter
 		port map 
 		(		
-			count => count_hrs_10, 
+			count => count_hrs_10,
 			clk => cout_hrs_1,
 			cout => cout_hrs_10,	
 			mode => "10",
@@ -174,8 +176,13 @@ begin
 		port map 
 		(
 			bin => count_hrs_10,
-			seg => hrs_10
+			seg => currentTime(41 downto 35) 
 		);	
-   
+	
+	tm(3 downto 0) <= count_min_1; 
+	tm(7 downto 4) <= count_min_10; 
+	tm(11 downto 8) <= count_hrs_1; 
+	tm(15 downto 12) <= count_hrs_10;
+
 end watch_impl;
 
