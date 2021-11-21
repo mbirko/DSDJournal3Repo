@@ -1,79 +1,91 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use work.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE work.ALL;
 
-entity alarm_watch_tester is
-	port
-	(
+ENTITY alarm_watch_tester IS
+	PORT (
 		-- Input ports
-		CLOCK_50	: in  std_logic;
-		KEY		: in  std_logic_vector(3 downto 0);
-		SW			: in	std_logic_vector(15 downto 0);
-		
+		CLOCK_50 : IN STD_LOGIC;
+		KEY : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+		SW : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+
 		-- Output ports
-		HEX2	: out std_logic_vector(6 downto 0);	
-		HEX3	: out std_logic_vector(6 downto 0);	
-		HEX4	: out std_logic_vector(6 downto 0);	
-		HEX5	: out std_logic_vector(6 downto 0);	
-		HEX6	: out std_logic_vector(6 downto 0);	
-		HEX7	: out std_logic_vector(6 downto 0);	
-		LEDR0 : out std_logic_vector(0 downto 0)	
+		HEX2 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX3 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX4 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX5 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX6 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX7 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+		LEDR0 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0)
 	);
 
-end alarm_watch_tester;
+END alarm_watch_tester;
 
-architecture alarm_watch_tester_impl of alarm_watch_tester is
-	signal bin_min1   : std_logic_vector(3 downto 0);
-	signal bin_min10  : std_logic_vector(3 downto 0);
-	signal bin_hrs1   : std_logic_vector(3 downto 0);
-	signal bin_hrs10  : std_logic_vector(3 downto 0);
-	signal time_alarm : std_logic_vector(15 downto 0);	
-	
-	signal hex_min_1	: std_logic_vector(6 downto 0);
-	signal hex_min_10	: std_logic_vector(6 downto 0);
-	signal hex_hrs_1	: std_logic_vector(6 downto 0);
-	signal hex_hrs_10	: std_logic_vector(6 downto 0);
-begin
+ARCHITECTURE alarm_watch_tester_impl OF alarm_watch_tester IS
 
--- Instance of watch
-	WATCH : entity watch
-		port map
+	SIGNAL tm_alarm : STD_LOGIC_VECTOR(15 DOWNTO 0);
+	SIGNAL dis_alarm : STD_LOGIC_VECTOR(27 DOWNTO 0);
+	SIGNAL dis_time : STD_LOGIC_VECTOR(41 DOWNTO 0);
+	SIGNAL tm_time : STD_LOGIC_VECTOR(15 DOWNTO 0);
+BEGIN
+
+	-- Instance of watch
+	ur : ENTITY watch
+		PORT MAP
 		(
 			clk => CLOCK_50,
 			speed => KEY(0),
-			reset => KEY(3)		
+			reset => KEY(3),
+			tm => tm_time,
+			currentTime => dis_time
 		);
+	
+	limit : ENTITY timeInputLimiter
+		PORT MAP(
+			input => sw(15 DOWNTO 0),
+			output => tm_alarm
+		);
+
+	alarmBin2Hex : ENTITY four_hex_display
+		PORT MAP(
+			binInput => tm_alarm,
+			disOutput => dis_alarm
+		);
+	compare : entity compareVector
+	  port map (
+		i1 => tm_time,
+		i2 => tm_alarm, 
+		o1 => LEDR0
+	  );
+
+	viewSetAlarm : process(KEY(2))
+	begin
+		case( KEY(2) ) is
+			when '1' => 	HEX2 <= dis_time(6 downto 0);
+							HEX3 <= dis_time(13 downto 7);
+							HEX4 <= dis_time(20 downto 14);
+							HEX5 <= dis_time(27 downto 21);
+							HEX6 <= dis_time(34 downto 28);
+							HEX7 <= dis_time(41 downto 35);
+			when '0' => 	HEX2 <= "1111111";
+							HEX3 <= "1111111";
+							HEX4 <= dis_alarm(6 downto 0);
+							HEX5 <= dis_alarm(13 downto 7);
+							HEX6 <= dis_alarm(20 downto 14);
+							HEX7 <= dis_alarm(27 downto 21);
+			when others => 	HEX2 <= "0000110"; -- r
+							HEX3 <= "0101111"; -- o
+							HEX4 <= "0101111"; -- r
+							HEX5 <= "0100011"; -- r
+							HEX6 <= "0101111"; -- E 
+							HEX7 <= "0111111"; -- -
+						
+							     
+		end case ;
 		
--- Instances of bin2sevenseg for handling input
-	min_1_bin2hex : entity bin2hex
-		port map
-		(
-			bin => bin_min_1
-			seg => hex_min_1
-		);
+	end process ; -- viewSetAlarm
 
-	min_10_bin2hex : entity bin2hex
-		port map
-		(
-			bin => bin_min_10
-			seg => hex_min_10
-		);
-	hrs_1_bin2hex : entity bin2hex
-		port map
-		(
-			bin => bin_hrs_1
-			seg => hex_hrs_1
-		);
 
-	hrs_10_bin2hex : entity bin2hex
-		port map
-		(
-			bin => bin_hrs_1
-			seg => hex_hrs_10
-		);
-		
--- Compare tm_alarm with tm_watch
-	compareProcess : process 
 
-end alarm_watch_tester_impl;
+END alarm_watch_tester_impl;
