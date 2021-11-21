@@ -1,65 +1,58 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use work.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE work.ALL;
 
-entity clock_gen is
-generic
-	(
-		MIN_COUNT : natural := 0; -- min og max count for tæller
-		MAX_COUNT : natural := 50000000
+ENTITY clock_gen IS
+	GENERIC (
+		MIN_COUNT : NATURAL := 0; -- min og max count for tæller
+		MAX_COUNT : NATURAL := 50000000
 	);
-
-	port
-	(
+	PORT (
 		-- Input ports
-		clk	: in  std_logic;
-		speed	: in  std_logic;
-		reset : in	std_logic;
-		
+		clk : IN STD_LOGIC;
+		speed : IN STD_LOGIC;
+		reset : IN STD_LOGIC;
+
 		-- Output ports
-		clk_out	: out std_logic		
+		clk_out : OUT STD_LOGIC
 	);
-end clock_gen;
+END clock_gen;
 
-architecture clock_gen_impl of clock_gen is
-begin 
+ARCHITECTURE clock_gen_impl OF clock_gen IS
+BEGIN
 
-clkProces : process(clk,reset) 
-	variable	cnt : integer range MIN_COUNT to MAX_COUNT; 
-	variable clkOutSignal : std_logic;
-begin
-		-- asynkron reset, ikke afhængig af clk
-		if reset = '0'  then 
+	clkProces : PROCESS (clk, reset)
+		VARIABLE cnt : INTEGER RANGE MIN_COUNT TO MAX_COUNT;
+		VARIABLE clkOutSignal : STD_LOGIC;
+	BEGIN
+		-- asynkron reset
+		IF reset = '0' THEN
 			-- Reset the counter to 0 
 			cnt := 0;
 			clkOutSignal := '0';
-			
-		elsif (rising_edge(clk)) then
-			-- increment counter
-			cnt := cnt + 1;	
-			
-			-- speed mode 1 for 1 sec clk pulse 
-			if	(speed = '1') then							
-				if (cnt = MAX_COUNT) then
-					cnt := 0;
-					clkOutSignal := '1';
-				else 
-					clkOutSignal := '0';					 
-				end if;
-				
-			-- speed mode 0 for 5 ms clk pulse	
-			elsif (speed = '0') then				
-				if (cnt = (MAX_COUNT/200)) then
-					cnt := 0;
-					clkOutSignal := '1';
-				else 
-					clkOutSignal := '0';
-				end if;
-				
-			end if;
-		end if;
-		clk_out 	<= clkOutSignal;
-	end process;
-end clock_gen_impl;
 
+		ELSIF (rising_edge(clk)) THEN
+			-- increment counter
+			cnt := cnt + 1;
+			-- speed mode 1 for 1 sec clk pulse 
+			IF (speed = '1') THEN
+				IF (cnt = MAX_COUNT) THEN
+					cnt := 0;
+					clkOutSignal := '1';
+				ELSE
+					clkOutSignal := '0';
+				END IF;
+				-- speed mode 0 for 5 ms clk pulse	
+			ELSIF (speed = '0') THEN
+				IF (cnt = (MAX_COUNT/200)) THEN
+					cnt := 0;
+					clkOutSignal := '1';
+				ELSE
+					clkOutSignal := '0';
+				END IF;
+			END IF;
+		END IF;
+		clk_out <= clkOutSignal;
+	END PROCESS;
+END clock_gen_impl;
