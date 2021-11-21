@@ -14,14 +14,7 @@ entity watch is
 
 		-- Output ports
 		currentTime : out std_logic_vector(41 downto 0);
-		sec_1		: out std_logic_vector(6 downto 0);
-		sec_10	: out std_logic_vector(6 downto 0);
-		min_1		: out std_logic_vector(6 downto 0);
-		min_10	: out std_logic_vector(6 downto 0);
-		hrs_1		: out std_logic_vector(6 downto 0);
-		hrs_10	: out std_logic_vector(6 downto 0);
-		tm 		: out std_logic_vector(15 downto 0)
-		
+		tm : out std_logic_vector(15 downto 0)
 	);
 end watch;
 
