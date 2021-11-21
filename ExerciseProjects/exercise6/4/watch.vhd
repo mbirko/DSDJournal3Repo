@@ -25,7 +25,6 @@ architecture watch_impl of watch is
 	SIGNAL reset_out : STD_LOGIC;
 
 	-- signals from overflow of sec, min and hrs
-	signal cout_min_1 	: std_logic; 
 	SIGNAL cout_sec_1 : STD_LOGIC;
 	SIGNAL cout_sec_10 : STD_LOGIC;
 	SIGNAL cout_min_1 : STD_LOGIC;
